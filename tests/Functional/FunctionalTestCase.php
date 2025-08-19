@@ -9,6 +9,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
+use Doctrine\Bundle\FixturesBundle\Loader\Loader;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 
 abstract class FunctionalTestCase extends WebTestCase
 {
@@ -18,6 +21,7 @@ abstract class FunctionalTestCase extends WebTestCase
     {
         parent::setUp();
         $this->client = static::createClient();
+        $this->resetDatabase();
     }
 
     protected function getEntityManager(): EntityManagerInterface
@@ -45,5 +49,18 @@ abstract class FunctionalTestCase extends WebTestCase
         $user = $this->service(EntityManagerInterface::class)->getRepository(User::class)->findOneByEmail($email);
 
         $this->client->loginUser($user);
+    }
+
+    protected function resetDatabase(): void
+    {
+        $entityManager = $this->getEntityManager();
+
+        // Purge the database
+        $purger = new ORMPurger($entityManager);
+        $executor = new ORMExecutor($entityManager, $purger);
+
+        // Load fixtures
+        $fixtures = $this->service('doctrine.fixtures.loader')->getFixtures();
+        $executor->execute($fixtures);
     }
 }
