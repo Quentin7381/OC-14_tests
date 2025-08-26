@@ -20,10 +20,12 @@ class Tag
     #[Id]
     #[GeneratedValue]
     #[Column]
+    // @phpstan-ignore property.unusedType
     private ?int $id = null;
 
     #[Column(unique: true)]
     #[Slug(fields: ['name'])]
+    // @phpstan-ignore property.onlyRead
     private string $code;
 
     #[NotBlank]

@@ -6,7 +6,7 @@ use App\Tests\Functional\FunctionalTestCase;
 
 class AddCommentTest extends FunctionalTestCase {
 
-    public function testComment(){
+    public function testComment(): void{
 
         // L'uttilisateur se connecte
         $this->login();

@@ -31,6 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Id]
     #[GeneratedValue]
     #[Column]
+    // @phpstan-ignore property.unusedType
     private ?int $id = null;
 
     #[NotBlank]

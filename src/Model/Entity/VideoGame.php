@@ -34,6 +34,7 @@ class VideoGame
     #[Id]
     #[GeneratedValue]
     #[Column]
+    // @phpstan-ignore property.unusedType
     private ?int $id = null;
 
     #[NotBlank]
@@ -52,6 +53,7 @@ class VideoGame
 
     #[Column(unique: true)]
     #[Slug(fields: ['title'])]
+    // @phpstan-ignore property.onlyRead
     private string $slug;
 
     #[NotBlank]
@@ -62,6 +64,7 @@ class VideoGame
     private DateTimeInterface $releaseDate;
 
     #[Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    // @phpstan-ignore property.onlyWritten
     private DateTimeImmutable $updatedAt;
 
     #[Column(type: Types::TEXT, nullable: true)]
@@ -78,14 +81,14 @@ class VideoGame
     private NumberOfRatingPerValue $numberOfRatingsPerValue;
 
     /**
-     * @var Collection<Tag>
+     * @var Collection<int, Tag>
      */
     #[ManyToMany(targetEntity: Tag::class)]
     #[JoinTable(name: 'video_game_tags')]
     private Collection $tags;
 
     /**
-     * @var Collection<Review>
+     * @var Collection<int, Review>
      */
     #[OneToMany(targetEntity: Review::class, mappedBy: 'videoGame')]
     private Collection $reviews;
@@ -216,7 +219,7 @@ class VideoGame
     }
 
     /**
-     * @return Collection<Tag>
+     * @return Collection<int, Tag>
      */
     public function getTags(): Collection
     {
@@ -224,7 +227,7 @@ class VideoGame
     }
 
     /**
-     * @return Collection<Review>
+     * @return Collection<int, Review>
      */
     public function getReviews(): Collection
     {

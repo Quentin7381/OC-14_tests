@@ -19,6 +19,7 @@ class Review
     #[Id]
     #[GeneratedValue]
     #[Column]
+    // @phpstan-ignore property.unusedType
     private ?int $id = null;
 
     #[ManyToOne(targetEntity: VideoGame::class, inversedBy: 'reviews')]

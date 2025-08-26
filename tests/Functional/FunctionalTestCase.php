@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Doctrine\Bundle\FixturesBundle\Loader\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 
@@ -30,15 +29,20 @@ abstract class FunctionalTestCase extends WebTestCase
     }
 
     /**
-     * @template T
-     * @param class-string<T> $id
-     * @return T
+     * @param string $id
+     * @return object
      */
     protected function service(string $id): object
     {
         return $this->client->getContainer()->get($id);
     }
 
+    /**
+     * Summary of get
+     * @param string $uri
+     * @param mixed[] $parameters
+     * @return Crawler
+     */
     protected function get(string $uri, array $parameters = []): Crawler
     {
         return $this->client->request('GET', $uri, $parameters);

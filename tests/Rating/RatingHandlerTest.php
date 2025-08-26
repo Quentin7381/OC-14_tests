@@ -28,6 +28,8 @@ class RatingHandlerTest extends TestCase
 
     /**
      * @dataProvider videoGameRatingProvider2
+     * @param VideoGame $videoGame
+     * @param array<string,int>|null $expectedRatings
      */
     public function testCountRatingsPerValue(VideoGame $videoGame, ?array $expectedRatings): void
     {
@@ -40,6 +42,9 @@ class RatingHandlerTest extends TestCase
         }
     }
 
+    /**
+     * @return array<string, array{0: VideoGame, 1: int|null}>
+     */
     public function videogameRatingProvider(): array
     {
         $videoGameWithNoReviews = new VideoGame();
@@ -68,6 +73,9 @@ class RatingHandlerTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, array{0: VideoGame, 1: array<string,int>}>
+     */
     public function videoGameRatingProvider2(): array
     {
         $videoGameWithNoReviews = new VideoGame();
