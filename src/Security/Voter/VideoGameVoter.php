@@ -8,10 +8,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
- *
  * @template TAttribute of string
  * @template TSubject of mixed
- * @phpstan-ignore missingType.generics
+ * @phpstan-extends Voter<'read'|'edit', VideoGame>
  */
 class VideoGameVoter extends Voter
 {
