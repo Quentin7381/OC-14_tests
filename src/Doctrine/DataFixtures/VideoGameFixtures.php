@@ -26,7 +26,7 @@ final class VideoGameFixtures extends Fixture implements DependentFixtureInterfa
         $users = $manager->getRepository(User::class)->findAll();
 
         $videoGames = array_map(
-            fn (int $index): VideoGame => (new VideoGame)
+            fn (int $index): VideoGame => (new VideoGame())
                 ->setTitle(sprintf('Jeu vidéo %d', $index))
                 ->setDescription($this->faker->paragraphs(10, true))
                 ->setReleaseDate(new DateTimeImmutable())
@@ -44,7 +44,6 @@ final class VideoGameFixtures extends Fixture implements DependentFixtureInterfa
         $manager->flush();
 
         // TODO : Ajouter des reviews aux vidéos
-
     }
 
     public function getDependencies(): array
