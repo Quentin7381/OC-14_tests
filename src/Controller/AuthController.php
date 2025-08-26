@@ -33,7 +33,15 @@ final class AuthController extends AbstractController
 
         $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+
+            if(!$form->isValid()){
+                return $this->render('views/auth/register.html.twig', [
+                    'form' => $form->createView(),
+                ], new Response('', Response::HTTP_UNPROCESSABLE_ENTITY));
+            }
+
+
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Inscription réussie. Vous pouvez vous connecter !');

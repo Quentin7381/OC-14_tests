@@ -62,10 +62,13 @@ final class RegisterTest extends FunctionalTestCase
      */
     public static function getFormData(array $overrideData = []): array
     {
-        return [
+        $return = [
             'register[username]' => 'username',
             'register[email]' => 'user@email.com',
             'register[plainPassword]' => 'SuperPassword123!'
-        ] + $overrideData;
+        ];
+
+        $return = array_merge($return, $overrideData);
+        return $return;
     }
 }
